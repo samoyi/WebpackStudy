@@ -1,5 +1,9 @@
 "use strict";
 
+let webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
+
 module.exports = {
   devtool: 'source-map',
   entry:  __dirname + "/app/main.js",//已多次提及的唯一入口文件
@@ -19,7 +23,16 @@ module.exports = {
 			exclude: /node_modules/,
 			loader: "babel-loader",
 		},
-	]  
+		{
+			test: /\.css$/,
+			loader: "style!css?modules"
+		},
+		{
+			test: /\.scss$/,
+			loader: "style!css!sass"
+		},
+
+	]
   },
   
   devServer:{
@@ -28,4 +41,8 @@ module.exports = {
 	  historyApiFallback: true,
 	  inline: true,
   },
+  
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin(),
+  ]
 }

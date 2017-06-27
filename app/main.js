@@ -1,4 +1,8 @@
 "use strict";
 
-var greeter = require('./Greeter.js');
+import "./main.css";
+// import "./height.scss";
+
+import greeter from "./Greeter.js";
+
 document.getElementById('root').appendChild(greeter());
