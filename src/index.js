@@ -1,23 +1,18 @@
 import _ from 'lodash';
-import './another';
-import './style.css';
-import Icon from './assets/icon.jpg';
-console.log(Icon);
-console.log(typeof Icon);
+import printMe from './print.js';
+
 function component() {
     let element = document.createElement('div');
+    let btn = document.createElement('button');
 
-    element.innerHTML = _.join(['index', 'module'], ' ');
-    element.classList.add('index');
+    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
 
-    // let myIcon = new Image();
-    // myIcon.src = './assets/icon.jpg';
-    // // myIcon.src = Icon;
-    // element.appendChild(myIcon);
+    btn.innerHTML = 'Click me and check the console!';
+    btn.onclick = printMe;
+ 
+    element.appendChild(btn);
 
     return element;
 }
 
 document.body.appendChild(component());
-
-console.log(document.querySelector('.another')); // 冲突 获取了其他模块的内容

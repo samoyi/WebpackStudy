@@ -1,9 +1,0 @@
-.index {
-  color: red;
-  border: solid 1px red;
-}
-
-/* 冲突 可以影响其他模块*/
-.another{
-    color: green;
-}
