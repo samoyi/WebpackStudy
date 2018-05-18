@@ -1,4 +1,4 @@
-# loader
+# Loaders
 
 ## 作用
 1. Out of the box, webpack only understands JavaScript files.
@@ -21,7 +21,7 @@ import Icon from './assets/icon.jpg';
 ## 原理
 
 
-# 设计
+## 设计
 ### 一切皆模块，小模块组成大模块
 #### 最初，我们提到模块，只会想到js和css。
 开发目录会是这样的：
@@ -46,8 +46,6 @@ import Icon from './assets/icon.jpg';
 1. component1和component2才是独立且完整的功能体。
 2. TODO 但是不是用webpack或其他工具，component1和component2是不是也能作为一个独立模
 块呢？要移植的话，直接拷贝过去，然后html引用js和css不是也可以吗？
-
-
 
 ### 一个模块中引用了某个文件，则该文件也需要配置相应的loader
 假设已经配置好了css文件的loader，但没有配置图片的loader，例如file-loader
