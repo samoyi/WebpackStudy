@@ -1,5 +1,9 @@
 # Webpack Study
 
+## TODO
+* [Tree Shaking 文档中的情况和实际的不符](https://webpack.js.org/guides/tree-shaking/)
+
+
 ## 学习目标
 ### 可以在不是用脚手架的情况下完整的配置Webpack
 

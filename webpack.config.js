@@ -8,7 +8,8 @@ module.exports = {
     entry: {
         app: './src/index.js',
     },
-    devtool: 'eval-source-map',
+    // devtool: 'eval-source-map',
+    devtool: 'inline-source-map',
     devServer: {
         contentBase: './dist',
         hot: true,
