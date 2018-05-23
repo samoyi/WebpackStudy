@@ -1,4 +1,5 @@
 import {cube} from './math.js';
+import './style.css';
 
 
 function component() {

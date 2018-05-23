@@ -3,5 +3,5 @@ export function square(x) {
 }
 
 export function cube(x) {
-    return x * x * x + '556677';
+    return x * x * x;
 }
