@@ -2,9 +2,11 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const devMode = process.env.NODE_ENV === 'development';
+
 module.exports = {
     entry: {
-        app: './src/index.js'
+        index: './src/index.js',
     },
     plugins: [
         new CleanWebpackPlugin(['dist']),
@@ -14,6 +16,7 @@ module.exports = {
     ],
     output: {
         filename: '[name].bundle.js',
+        chunkFilename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
     module: {
@@ -21,8 +24,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    'style-loader',
-                    'css-loader'
+                    'css-loader',
                 ],
             },
             {
