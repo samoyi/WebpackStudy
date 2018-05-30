@@ -34,8 +34,22 @@ dynamically split code with the core application logic.
 
 
 ## Dynamic Imports
-* 过去是使用[require.ensure](https://webpack.js.org/api/module-methods/#require-ensure)
+过去是使用[require.ensure](https://webpack.js.org/api/module-methods/#require-ensure)
 来实现动态加载，但现在应该使用 ES6 的运行时模块加载函数 [import()](http://es6.ruanyifeng.com/#docs/module#import)
+```js
+async function getComponent() {
+    var element = document.createElement('div');
+    const lodash = await import(/* webpackChunkName: "lodash" */ 'lodash');
+    const _ = lodash.default;
+
+    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+
+    return element;
+}
+getComponent().then(component => {
+    document.body.appendChild(component);
+});
+```
 
 ### Webpack Mode
 使用 `webpackMode` 注释来设定模块的加载方式。一共有4种方式：`lazy`、`lazy-once`、
@@ -53,6 +67,17 @@ import(/* webpackChunkName: "bar-module" */ "modules/bar");
 TODO 没看懂要怎么用，试了一下没发现有什么不同
 
 
+## Lazy Loading
+就是在事件处理函数中使用`import()`函数动态加载模块
+
+### Frameworks
+Many frameworks and libraries have their own recommendations on how this should
+be accomplished within their methodologies. Here are a few examples:
+* React: [Code Splitting and Lazy Loading](https://reacttraining.com/react-router/web/guides/code-splitting)
+* Vue: [Lazy Load in Vue using Webpack's code splitting](https://alexjoverm.github.io/2017/07/16/Lazy-load-in-Vue-using-Webpack-s-code-splitting/)
+* AngularJS: [AngularJS + Webpack = lazyLoad](https://medium.com/@var_bin/angularjs-webpack-lazyload-bb7977f390dd)
+
+
 ## Bundle Analysis
 1. You can generate the required JSON file for this tool by running
 `webpack --profile --json > stats.json`
@@ -60,5 +85,6 @@ TODO 没看懂要怎么用，试了一下没发现有什么不同
 
 
 ## References
-* [Doc](https://www.webpackjs.com/guides/code-splitting/)
+* [code-splitting](https://www.webpackjs.com/guides/code-splitting/)
+* [lazy-loading](https://webpack.js.org/guides/lazy-loading/)
 * [Webpack and Dynamic Imports: Doing it Right](https://medium.com/front-end-hacking/webpack-and-dynamic-imports-doing-it-right-72549ff49234)

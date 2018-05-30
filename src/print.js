@@ -1,4 +1,5 @@
-console.log(666);
-export default function printMe() {
-    console.log('黑问号人脸')
+console.log('The print.js module has loaded! See the network tab in dev tools...');
+
+export default () => {
+    console.log('Button Clicked: Here\'s "some text"!');
 }

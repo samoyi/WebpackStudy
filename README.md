@@ -2,7 +2,14 @@
 
 ## TODO
 * [Tree Shaking 文档中的情况和实际的不符](https://webpack.js.org/guides/tree-shaking/)
-
+* 重看[Caching](https://webpack.js.org/guides/caching/)部分
+* [Build Performance](https://webpack.js.org/guides/build-performance/)有些内容还
+  不懂
+* 没看[Authoring Libraries](https://webpack.js.org/guides/author-libraries/)
+* 没看[Shimming](https://webpack.js.org/guides/shimming/)
+* 没看[Progressive Web Application](https://webpack.js.org/guides/progressive-web-application/)
+* 没看[Content Security Policies](https://webpack.js.org/guides/csp/)
+* 没看[Development - Vagrant](https://webpack.js.org/guides/development-vagrant/)
 
 ## 学习目标
 ### 可以在不是用脚手架的情况下完整的配置Webpack
