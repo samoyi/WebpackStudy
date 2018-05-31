@@ -56,7 +56,7 @@ our dependencies
 
 
 ## Minification
-1. 如果使用Webpack4，直接把 `mode` 设为 `production` 即可。
+1. 如果使用 Webpack4，直接把 `mode` 设为 `production` 即可。
 2. If not set, webpack sets `production` as the default value for `mode`. 也就是
 说，开发环境的配置里必须要把 `mode` 设为 `development`
 3. 如果用之前的版本，就使用 `UglifyJSPlugin` 插件
