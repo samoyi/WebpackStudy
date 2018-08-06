@@ -1,15 +1,17 @@
 # Manifest
+
 In a typical application or site built with webpack, there are three main types
 of code:
 * The source code you, and maybe your team, have written.
 * Any third-party library or "vendor" code your source is dependent on.
 * A webpack runtime and manifest that conducts the interaction of all modules.
 
+
 ## Runtime
 1. The runtime, along with the manifest data, is basically all the code webpack
 needs to connect your modularized application while it's running in the browser.
 2. It contains the loading and resolving logic needed to connect your modules as
- they interact. This includes connecting modules that have already been loaded
+they interact. This includes connecting modules that have already been loaded
 into the browser as well as logic to lazy-load the ones that haven't.
 
 

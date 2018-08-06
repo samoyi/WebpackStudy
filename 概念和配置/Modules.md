@@ -26,8 +26,8 @@ TODO 没看懂 [文档](https://webpack.js.org/concepts/module-resolution/#modul
 
 ## Resolving Loaders
 This follows the same rules as those specified for file resolution. But the
-[`resolveLoader`](https://webpack.js.org/configuration/resolve/#resolveloader) configuration option can be used to have separate resolution
-rules for loaders.
+[`resolveLoader`](https://webpack.js.org/configuration/resolve/#resolveloader)
+configuration option can be used to have separate resolution rules for loaders.
 
 
 ## Caching

@@ -1,7 +1,7 @@
 # Public Path
 The `publicPath` configuration option can be quite useful in a variety of
 scenarios. It allows you to specify the base path for all the assets within your
- application.
+application.
 
 ## Environment Based
 在构建项目时设置路径值，通过`output`的`publicPath`属性

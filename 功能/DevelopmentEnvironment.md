@@ -12,7 +12,7 @@ errors and warnings to their original location.
 2. In order to make it easier to track down errors and warnings, JavaScript
 offers source maps, which maps your compiled code back to your original source
 code.
-3. Webpack使用`devtool`配置选项来设置source maps的生成。具体的配置见[文档](https://webpack.js.org/configuration/devtool/)
+3. Webpack 使用`devtool`配置选项来设置 source maps 的生成。具体的配置见[文档](https://webpack.js.org/configuration/devtool/)
 4. Use the `SourceMapDevToolPlugin` for a more fine grained configuration.
 5. Use `source-map-loader` to deal with existing source maps.
 
@@ -53,16 +53,16 @@ as you edit your assets while the server is running.
 ## HMR
 1. HMR is one of the most useful features offered by webpack. It allows all
 kinds of modules to be updated at runtime without the need for a full refresh.
-2. 似乎是从 webpack 4 开始，启动HRM只需要在启动 `webpack-dev-server` 的命令里加上
+2. 似乎是从 webpack 4 开始，启动 HRM 只需要在启动 `webpack-dev-server` 的命令里加上
 `--hot` 参数即可，不需要修改 `webpack.config.js` 中 `devServer` 的配置，也不需要手动
 使用 `HotModuleReplacementPlugin`。  
 参考这篇[文档](https://github.com/webpack/docs/wiki/webpack-dev-server#hot-module-replacement)
-3. 在 webpack 4 之前， all we need to do is update our `webpack-dev-server`
+3. 在 webpack 4 之前，all we need to do is update our `webpack-dev-server`
 configuration, and use webpack's built in HMR plugin. 具体看[文档](https://webpack.js.org/guides/hot-module-replacement/#enabling-hmr)
-    1.  首先需要修改`devServer`的配置，让它开启HMR模式。
-    2. 然后使用Webpack内置的HMR插件。
-4. 虽然HMR可以实现父模块异步接收到它依赖的子模块，但因为没有刷新，父模块的代码并不会重
-新运行一遍，所以依赖子模块数据的部分仍然会使用旧的数据。除非使用HMR的接口
+    1.  首先需要修改`devServer`的配置，让它开启 HMR 模式。
+    2. 然后使用 Webpack 内置的 HMR 插件。
+4. 虽然 HMR 可以实现父模块异步接收到它依赖的子模块，但因为没有刷新，父模块的代码并不会重
+新运行一遍，所以依赖子模块数据的部分仍然会使用旧的数据。除非使用 HMR 的接口
 `module.hot.accept`中的的回调参数里面进行更新。
 ```js
 if (module.hot) {
@@ -78,8 +78,8 @@ details on the module.hot interface.
 If a module has no HMR handlers, the update bubbles up. This means that a single
  handler can update a complete module tree. If a single module from the tree is
 updated, the entire set of dependencies is reloaded.
-6. 但在实际开发中，你不需要自己调用这些接口来更新页面，一般相应的loader都会实现这些功能
-。比如`style-loader`可以根据依赖变化自动更新样式，`vue-loader`可以根据依赖变化自动更
+6. 但在实际开发中，你不需要自己调用这些接口来更新页面，一般相应的 loader 都会实现这些功
+能。比如`style-loader`可以根据依赖变化自动更新样式，`vue-loader`可以根据依赖变化自动更
 新vue组件。
 
 ### 原理

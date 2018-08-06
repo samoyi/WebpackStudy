@@ -1,4 +1,5 @@
 # Code Splitting
+
 This feature allows you to split your code into various bundles which can
 then be loaded on demand or in parallel. It can be used to achieve smaller
 bundles and control resource load prioritization which, if used correctly,
@@ -12,6 +13,7 @@ There are three general approaches to code splitting available:
 
 ## Entry Points
 使用多 `entry` 生成多个 bunlde
+
 
 ### Prevent Duplication
 1. If there are any duplicated modules between entry chunks they will be
@@ -52,11 +54,11 @@ getComponent().then(component => {
 ```
 
 ### Webpack Mode
-使用 `webpackMode` 注释来设定模块的加载方式。一共有4种方式：`lazy`、`lazy-once`、
+使用`webpackMode`注释来设定模块的加载方式。一共有4种方式：`lazy`、`lazy-once`、
 `eager`和`weak`。四种模式的[具体功能](https://webpack.js.org/api/module-methods/#import-)
 
 ### Webpack Chunk Name
-默认情况下，webpack 会使用数字ID来命名生成的模块文件，使用 `webpackChunkName` 注释可
+默认情况下，webpack 会使用数字 ID 来命名生成的模块文件，使用`webpackChunkName`注释可
 以指定名称
 ```js
 import(/* webpackChunkName: "foo-image" */ "assets/images/foo.jpg");
