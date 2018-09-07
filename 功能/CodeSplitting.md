@@ -1,14 +1,12 @@
 # Code Splitting
 
-This feature allows you to split your code into various bundles which can
-then be loaded on demand or in parallel. It can be used to achieve smaller
-bundles and control resource load prioritization which, if used correctly,
-can have a major impact on load time.  
-
-There are three general approaches to code splitting available:
-* Entry Points: Manually split code using `entry` configuration.
-* Prevent Duplication: Use the SplitChunks to dedupe and split chunks.
-* Dynamic Imports: Split code via inline function calls within modules.
+* 代码分离能够把代码分离到不同的 bundle 中，然后可以按需加载或并行加载这些文件。
+* 代码分离可以用于获取更小的 bundle，以及控制资源加载优先级，如果使用合理，会极大影响加
+载时间。
+* 有三种常用的代码分离方法：
+    * 入口起点：使用`entry`配置手动地分离代码。
+    * 防止重复：使用`SplitChunks`去重和分离`chunk`。
+    * 动态导入：通过模块的内联函数调用来分离代码。
 
 
 ## Entry Points
