@@ -29,7 +29,7 @@ module.exports = {
 * [webpack dev server的文档](https://github.com/webpack/docs/wiki/webpack-dev-server)
 
 ### 配置
-1. 安装
+1. 安装`webpack-dev-server`
 2. 修改`webpack.config.js`
     ```js
     module.exports = {
@@ -52,8 +52,8 @@ module.exports = {
     }
     // ...
     ```
-4. 在命令行中运行`npm run dev`，`webpack-dev-server`就会启动。因为加了`--open`参数，所以
-默认浏览器会自动打开`http://localhost:8080/`，当然也可以不加。
+4. 在命令行中运行`npm run dev`，`webpack-dev-server`就会启动。因为加了`--open`参数，
+所以默认浏览器会自动打开`http://localhost:8080/`，当然也可以不加。
 
 
 ## HMR
