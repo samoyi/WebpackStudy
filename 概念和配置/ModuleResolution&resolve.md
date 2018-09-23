@@ -49,8 +49,8 @@ import 'module/lib/file';
 3. 如果`./node_modules`不存在，则向外层查找`../node_modules`，以此类推。
 4. 模块的路径可以通过`resolve.alias`配置项来设置一个别名。
 
-### 如果路径指向一个文件
-1. 如果路径具有文件扩展名，则被直接将文件打包。
+#### 如果路径指向一个文件
+1. 如果路径具有文件扩展名，则直接将文件打包。
 2. 否则，将使用`resolve.extensions`选项作为文件扩展名来解析。
 
 #### 如果路径指向一个文件夹
@@ -72,87 +72,6 @@ import 'module/lib/file';
     `resolve.mainFiles`使用默认值`['index']`。
     2. 如果删除了`node_modules\vue\package.json`里面的`main`和`module`字段，加载
     Vue 的路径就会是`/src/index.js`。因此就会报错。
-    3. 不懂。我把打包入口文件重命名为`index1.js`，把`vue.runtime.esm.js`重命名为`index.js`
-    放到`index1.js`，还是找不到模块。
+    3. 不懂。我把打包入口文件重命名为`index1.js`，把`vue.runtime.esm.js`重命名为
+    `index.js`放到`index1.js`，还是找不到模块。
 3. 文件扩展名通过`resolve.extensions`选项采用类似的方法进行解析。
-
-
-## `resolve`配置
-### resolve.alias
-1. 用于给路径设定一个别名
-2. 例如从`/src/index.js`中引用`/module/m_foo.js`，普通情况下是要`require('../module/m_foo')`
-3. 但如果如下设置两个别名
-    ```js
-    alias: {
-        foo: '../module/m_foo',
-        module: '../module/',
-    },
-    ```
-4. 则既可以`require('foo')`也可以`require('module/m_foo')`
-
-#### exact match
-1. 假设你用 Vue。当你`import Vue from 'vue'`时，默认情况下，webpack 引用的是运行时版本
-`node_modules/vue/dist/vue.runtime.esm.js`。
-2. 如果你想要用完整版，虽然你可以把 vue 模块的`package.json`中的`module`从
-`"dist/vue.runtime.esm.js"`改为`"vue.esm.js"`。但合理的方法还是给`vue.esm.js`的路径设置一
-个别名：
-    ```js
-    alias: {
-        'vue_full': 'vue/dist/vue.esm.js'
-    },
-    ```
-3. 这样你可以通过`import Vue_full from 'vue_full'`引用到完整版的 Vue，而且还不影响继续使用
-`import Vue from 'vue'`引用到运行时的 Vue。
-4. 不过引用两个版本的 Vue 没什么必要，所以你可能直接让`import Vue from 'vue'`引用完整版的：
-    ```js
-    'vue': 'vue/dist/vue.esm.js'
-    ```
-5. 现在通过`import Vue from 'vue'`引用的就是完整版的 Vue 了。
-6. 那么新的问题是，存在如下文件`node_modules/vue/dist/foo.js`，该如何引用？
-7. 普通情况下，`import {str} from 'vue/dist/foo'`就可以了。但问题是现在`'vue'`被定义成了一
-个别名，所以路径`'vue/dist/foo'`就不再是预期的路径，导致无法找到`foo.js`。
-8. 所以要用 exact match，只需要在别名后面加一个`$`:
-    ```js
-    alias: {
-        'vue$': 'vue/dist/vue.esm.js'
-    },
-    ```
-9. 这个意思是，该别名必须要精确匹配。即`'vue'`是在使用该别名，而`'vue/dist/foo'`中的`'vue'`
-就只是普通的路径字符串。
-10. 现在对两个文件都可以正常引用了
-    ```js
-    import Vue from 'vue'
-    import {str} from 'vue/dist/foo'
-    ```
-
-### `resolve.extensions`
-1. 如果一个模块的拓展名是`resolve.extensions`指定的数组中的其中一个，则引用该模块时不需要加
-扩展名也可以。
-2. `resolve.extensions`默认值是`['.wasm', '.mjs', '.js', '.json']`。
-3. 如果你要用一个新数组重写该值，新数组最好也能包括上述四种默认扩展名。这样可以保证最有效的兼
-容。
-
-### `resolve.mainFields`
-1. 当从 npm 包中导入模块时，此选项将决定在`package.json`中使用哪个字段指定的路径来导入
-模块。
-2. 根据 webpack 配置中指定的`target`不同，默认值也会有所不同。
-
-#### 默认值
-* 当`target`属性设置为`webworker`、`web`或者没有指定，默认值为：
-    ```js
-    module.exports = {
-        //...
-        resolve: {
-            mainFields: ['browser', 'module', 'main']
-        }
-    };
-    ```
-* 对于其他任意的 target，默认值为：
-    ```js
-    module.exports = {
-        //...
-        resolve: {
-            mainFields: ['module', 'main']
-        }
-    };
-    ```

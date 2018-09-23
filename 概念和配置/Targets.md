@@ -1,7 +1,7 @@
 # Targets
 
 1. 虽然 webpack 主要用于构建浏览器端程序，但因为 JS 也可以编写服务器端甚至桌面程序（例
-如Electron）。
+如 Electron）。
 2. 所以 webpack 使用`target`属性来设置构建目标，指定编译后的代码是用在哪种环境之下的。
 3. 每个 target 都有各种部署(deployment)/环境(environment)特定的附加项，以支持满足其
 需求。例如，当`target`设置为`"electron"`，webpack 引入多个 electron 特定的变量。
