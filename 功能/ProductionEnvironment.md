@@ -7,13 +7,14 @@
 
 因为开发环境和生产环境对 Webpack 的配置有着不同的要求，所以需要对配置进行分离。
 
-## Separate webpack configurations
-[具体方法](https://webpack.js.org/guides/production/)
-1. 首先需要将原来单一的 Webpack 配置分为三部分：
-    * 开发环境需要用配置
-    * 生产环境需要的配置
-    * 通用的配置
-      开发配置和生产配置都会使用`webpack-merge`来融合通用配置
+
+## 分离 webpack 配置
+1. 由于要遵循逻辑分离，我们通常建议为每个环境编写彼此独立的 webpack 配置。
+2. 首先需要将原来单一的`webpack.config.js`配置分为三部分：
+    * 开发环境需要的配置：`webpack.dev.js`
+    * 生产环境需要的配置：`webpack.prod.js`
+    * 通用的配置：`webpack.common.js`
+3. 开发配置和生产配置都会使用`webpack-merge`来融合通用配置
 2. 现在`webpack-dev-server`需要使用开发环境的配置，而`build`需要使用生产环境的配置。
 
 

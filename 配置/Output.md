@@ -1,4 +1,4 @@
-# Output
+# output
 
 1. `output`属性告诉 webpack 在哪里输出它所创建的 bundles，以及如何命名这些文件。
 2. 主输出文件默认为`./dist/main.js`，其他生成文件的默认输出目录是`./dist`。
@@ -162,3 +162,12 @@ hash。
 9. 这样，app 和 another 都有了各自独立的 hash。下次只更新了 app 模块，输出的两个
 chunk 中只有 app 对应的文件名 hash 会更新，another 对应的文件名还是和之前的一样。这样
 整体部署更新时，就只有更新过的文件会刷新缓存。
+
+### `index.html`引用脚本的问题
+1. 现在的 bundle 会自动带上参数，但截至目前为止，`index.html`引用脚本的代码依然是
+    ```html
+    <script src="app.js"></script>
+    ```
+2. 也就是说每次构建后，都要修改`index.html`中引用脚本的`src`属性才行。
+3. 这就需要用到`htmlwebapckplugin`插件，它会根据生成的 bundle 名称自动生成引用该
+bundle 的`index.html`文件。

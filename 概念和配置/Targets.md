@@ -15,6 +15,5 @@
 
 
 ## References
-* [Target概念](https://webpack.js.org/concepts/targets/)
-* [Target配置](https://webpack.js.org/configuration/target/)
+* [Target概念](https://webpack.docschina.org/concepts/targets/)
 * [Build Targets](https://survivejs.com/webpack/output/targets/)

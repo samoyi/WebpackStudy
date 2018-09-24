@@ -1,4 +1,4 @@
-# Context and Entry
+# context and entry
 
 ## `context`
 1. 基础目录。用于从配置中解析 entry point 和 loader。

@@ -1,4 +1,4 @@
-# Resolve
+# resolve
 
 这些选项能设置模块如何被解析。
 
