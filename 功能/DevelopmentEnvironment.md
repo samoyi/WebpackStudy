@@ -65,13 +65,15 @@ module.exports = {
     // ...
     "scripts": {
         // ...
-        "dev": "webpack-dev-server --open",
+        "dev": "webpack-dev-server --hot",
         // ...
     }
     // ...
     ```
 3. 在 webpack 4 之前，看[HMR的文档](https://www.webpackjs.com/guides/hot-module-replacement/)
-4. 虽然 HMR 可以实现父模块异步接收到它依赖的子模块，但因为没有刷新，父模块的代码并不会重
+4. HMR 不能和`chunkhash`及`contentHash`共用，dev server 无法处理带 hash 的热更新。
+不过一般情况下也是只在开发环境配置 HMR，以及只在生产环境使用 hash。
+5. 虽然 HMR 可以实现父模块异步接收到它依赖的子模块，但因为没有刷新，父模块的代码并不会重
 新运行一遍，所以依赖子模块数据的部分仍然会使用旧的数据。除非使用 HMR 的接口
 `module.hot.accept`中的的回调参数里面进行更新。
 ```js
@@ -84,11 +86,11 @@ if (module.hot) {
 ```
 See the [HMR API page](https://webpack.js.org/api/hot-module-replacement/) for
 details on the `module.hot` interface.
-5. However, in most cases, it's not mandatory to write HMR code in every module.
+6. However, in most cases, it's not mandatory to write HMR code in every module.
 If a module has no HMR handlers, the update bubbles up. This means that a single
  handler can update a complete module tree. If a single module from the tree is
 updated, the entire set of dependencies is reloaded.
-6. 但在实际开发中，你不需要自己调用这些接口来更新页面，一般相应的 loader 都会实现这些功
+7. 但在实际开发中，你不需要自己调用这些接口来更新页面，一般相应的 loader 都会实现这些功
 能。比如`style-loader`可以根据依赖变化自动更新样式，`vue-loader`可以根据依赖变化自动更
 新 vue 组件。
 

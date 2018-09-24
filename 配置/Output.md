@@ -91,7 +91,7 @@
     ```
 
 
-## 使用 hash 进行版本控制
+## 在生产环境中使用 hash 进行版本控制
 ### 构建级别 hash
 1. 在构建生产版本时，每个构建版本可以用唯一的 hash 来区分，便于版本控制
 2. 如果要给整体的构建添加 hash，可以如下配置
@@ -171,3 +171,10 @@ chunk 中只有 app 对应的文件名 hash 会更新，another 对应的文件�
 2. 也就是说每次构建后，都要修改`index.html`中引用脚本的`src`属性才行。
 3. 这就需要用到`htmlwebapckplugin`插件，它会根据生成的 bundle 名称自动生成引用该
 bundle 的`index.html`文件。
+
+### 不要在开发环境中使用 hash
+1. 首先一个明确的错误会出现，就是 HMR 不能和 `chunkhash`/`contenthash`共存，否则就会
+报错。看起来 HMR 无法处理更换 bundle 文件的问题。但是使用`hash`仍然可以。
+2. 而且还会造成其他问题，比如内存泄露，因为 dev server 不能清除之前的就 bundle 文件。
+参考这个[issue](https://github.com/webpack/webpack-dev-server/issues/377)。
+3. 所以应该只在生产环境的配置里使用 hash。

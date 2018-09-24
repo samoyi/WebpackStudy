@@ -15,7 +15,72 @@
     * 生产环境需要的配置：`webpack.prod.js`
     * 通用的配置：`webpack.common.js`
 3. 开发配置和生产配置都会使用`webpack-merge`来融合通用配置
-2. 现在`webpack-dev-server`需要使用开发环境的配置，而`build`需要使用生产环境的配置。
+    ```js
+    // webpack.dev.js
+    const merge = require('webpack-merge');
+    const common = require('./webpack.common.js');
+
+    module.exports = merge(common, {
+        mode: 'development',
+        devtool: 'inline-source-map',
+        output: {
+            filename: '[name].bundle.js',
+        },
+        devServer: {
+            contentBase: './dist',
+        },
+    });
+    ```
+    ```js
+    // webpack.prod.js
+    const merge = require('webpack-merge');
+    const common = require('./webpack.common.js');
+
+    module.exports = merge(common, {
+        mode: 'production',
+        output: {
+            // 只在生产环境使用 hash
+            filename: '[name].[chunkhash:8].js',
+        },
+    });
+    ```
+    ```js
+    // webpack.common.js
+    const path = require('path');
+    const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+    module.exports = {
+        entry: {
+            app: './src/index.js',
+            another: './src/another.js',
+        },
+        output: {
+            path: path.resolve(__dirname, 'dist'),
+        },
+        module: {
+            rules: [
+                // ...
+            ],
+        },
+        plugins: [
+            new HtmlWebpackPlugin({
+                template: 'index.html',
+            }),
+        ],
+        // ...
+    };
+    ```
+4. 下来需要修改`package.json`。因为之前用的是默认的`webpack.config.js`文件，所以
+webpack 在进行构建时可以找到该配置文件。但现在进行了分离和改名，就需要告诉 webpack 构
+建时要使用的配置文件是什么。
+    ```json
+    "scripts": {
+        "dev": "webpack-dev-server --hot --config webpack.dev.js",
+        "build": "webpack --config webpack.prod.js"
+    }
+    ```
+    通过`--config`参数来指明两种不同构建过程中各自需要的配置文件。
+
 
 
 ## Specify the Environment

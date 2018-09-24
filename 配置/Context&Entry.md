@@ -14,7 +14,8 @@
     }
     ```
     现在我把基础目录设为了上一级，所以就找不到 entry 文件了，构建时就会报错。
-5. `context`的默认值是当前目录，所以在上述情况下，不设置`context`刚好是正确的。
+5. `context`的默认值是 cwd，如果是通过`package.json`中的`scripts`设定的命令进行构建，
+因为 cwd 就是`package.json`所在目录。
 6. 但`context`的意义是，假如你的配置比较复杂，可能会被配置文件拆分并放到分类目录里，那
 默认值的当前目录就不是基础目录了。
 7. 例如 Vue-cli 2 中的`build/webpack.base.config.js`因为是在次一级目录，所以它内部
