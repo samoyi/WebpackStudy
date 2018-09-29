@@ -178,3 +178,44 @@ bundle 的`index.html`文件。
 2. 而且还会造成其他问题，比如内存泄露，因为 dev server 不能清除之前的就 bundle 文件。
 参考这个[issue](https://github.com/webpack/webpack-dev-server/issues/377)。
 3. 所以应该只在生产环境的配置里使用 hash。
+
+
+## 设定输出文件名称
+### `output.chunkFilename`
+1. 此选项决定了非入口(non-entry) chunk 文件的名称。可以参考`功能\CodeSplitting.md`中
+的例子。
+2. 所谓非入口 chunk 文件，先看看`配置\context&entry.md`的多入口单输出部分，里面讲到了
+在动态加载模块时（`import()`），虽然被加载模块没有通过写进 entry 配置里从而被单独输出，
+但这种动态加载的方式也会使它被输出为一个单独文件。这样的文件就属于非出口 chunk 文件。
+3. `output.filename`可以指定入口 chunk 文件的名称，而不能指定非入口的。因为需要通过
+`output.chunkFilename`来指定。例如
+    ```js
+    output: {
+        filename: '[name].bundle.js',
+        chunkFilename: '[name].bundle.js',
+    },
+    ```
+4. `filename`值的中括号里面的`name`变量是模块文件名，但`chunkFilename`的`name`变量却
+不是，而是要用`import()`的注释参数`webpackChunkName`来设定
+    ```js
+    // 根据上面的`output`配置，`another.js`模块的输出文件将命名为`another.bundle.js`
+    import(/* webpackChunkName: "another" */ './another.js')
+    ```
+5. `webpackChunkName`可以设定任意字符串。但一个问题，如果多个模块都动态引用了
+`another.js`，而各自设定的`webpackChunkName`却不一样，会怎么办？
+6. 显然不会输出多个命名不同的文件，那样就失去打包的意义了。经过我的测试，这种时候的命名
+规则是：谁最短就用谁的；如果一样短，就比较首字符的；如果首字符相同，就依次比较之后的字符
+。例如
+    ```js
+    // a.js
+    import(/* webpackChunkName: "another" */ './another.js')
+    // b.js
+    import(/* webpackChunkName: "foo" */ './another.js')
+    //输出为 foo.bundle.js
+
+    // c.js
+    import(/* webpackChunkName: "foo" */ './other.js')
+    // d.js
+    import(/* webpackChunkName: "bar" */ './other.js')
+    // 输出为 bar.bundle.js
+    ```
