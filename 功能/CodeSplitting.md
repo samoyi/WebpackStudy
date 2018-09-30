@@ -74,13 +74,12 @@
 而且随着项目的变动，你可能有不同的模块要分离，这样就要不停的修改`entry`。这个缺点貌似无
 解。
 
-
-
-### 无法动态加载模块
-使用多 entry 进行代码分离的一个不足是，it isn't as flexible and can't be used to
-dynamically split code with the core application logic.
-
-
+#### 无法动态加载模块？
+1. 因为下面将要说到的动态导入法代码分离中，`import()`会自动把依赖打包为单独的文件。
+2. 所以在你将`another`模块按照上面的方法作为一个入口单独输出时，会生成一个独立的文件。
+但如果又在`index`里动态加载`import('./another')`，又会自动生成一个独立的文件。进而造
+成混乱。
+3. 所以，代码分离方案，应该直接使用下面的动态导入法。
 
 
 ## 动态导入
@@ -142,21 +141,13 @@ dynamically split code with the core application logic.
 
 
 ### 优点
-1. 上面多入口的代码分离方案无解的频繁修改`entry`问题，这里已经不存在了。
-
+和多入口方法一样实现了代码分离，同时解决了多入口方案无解的频繁修改`entry`问题，而且实现
+了动态加载模块。
 
 
 ### Webpack Mode
 使用`webpackMode`注释来设定模块的加载方式。一共有4种方式：`lazy`、`lazy-once`、
 `eager`和`weak`。四种模式的[具体功能](https://webpack.js.org/api/module-methods/#import-)
-
-### Webpack Chunk Name
-默认情况下，webpack 会使用数字 ID 来命名生成的模块文件，使用`webpackChunkName`注释可
-以指定名称
-```js
-import(/* webpackChunkName: "foo-image" */ "assets/images/foo.jpg");
-import(/* webpackChunkName: "bar-module" */ "modules/bar");
-```
 
 ### Prefetching/Preloading modules
 TODO 没看懂要怎么用，试了一下没发现有什么不同
@@ -171,12 +162,6 @@ be accomplished within their methodologies. Here are a few examples:
 * React: [Code Splitting and Lazy Loading](https://reacttraining.com/react-router/web/guides/code-splitting)
 * Vue: [Lazy Load in Vue using Webpack's code splitting](https://alexjoverm.github.io/2017/07/16/Lazy-load-in-Vue-using-Webpack-s-code-splitting/)
 * AngularJS: [AngularJS + Webpack = lazyLoad](https://medium.com/@var_bin/angularjs-webpack-lazyload-bb7977f390dd)
-
-
-## Bundle Analysis
-1. You can generate the required JSON file for this tool by running
-`webpack --profile --json > stats.json`
-2. 然后上传到[这里](https://webpack.github.io/analyse/)进行分析
 
 
 ## References
