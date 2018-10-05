@@ -6,7 +6,7 @@
 
 
 ## 用法
-1. 在`index.html`中引入脚本
+1. 在`index.html`中引入不打包的依赖的脚本
     ```html
     <div id="app"></div>
     <script type="text/javascript"
@@ -18,7 +18,7 @@
     module.exports = {
         //...
         externals: {
-            // 将脚本中的 BMap 定义为 BaiduMap
+            // 将脚本中的全局变量 BMap 定义为 BaiduMap
             BaiduMap: 'BMap',
         }
     };

@@ -45,42 +45,33 @@
 
 ## `publicPath`
 1. 该配置能帮助你为项目中的所有资源指定一个基础路径。
-2. 比如说你在一个组件里引用本地的一个图片：
-    ```html
-    <img src="../assets/images/1.jpg" />
+2. 这里说的所有资源是指`index.html`以外构建生成的其他文件
+3. 默认情况下，构建生成的 JS、图片等文件是和`index.html`同级的，但你部署的时候可能希望
+项目结构是
     ```
-3. 打包之后，`dist`里会生成一个 JS 文件和一个图片文件。
-    ```
-    dist
-     |- 5a339e90d795e76df54beaa5a26dc465.jpg
-     |- app.bundle.js
+     根目录
      |- index.html
+     |- static
+          |- app.bundle.js    
+          |- img.jpg    
     ```
-    按照这个结构直接部署运行，没问题。
-4. 但正常的情况下，你可能有很多图片，把它们都放到根目录里显然不合适，所以你会把结构变成
-如下
-    ```
-    dist
-     |- app.bundle.js
-     |- index.html
-     |- assets
-          |- 5a339e90d795e76df54beaa5a26dc465.jpg
-    ```
-5. 但现在`<img src="../assets/images/1.jpg" />`就找不到图片了，因为你只是擅自修改了
-图片的路径，并没有通知 webpack，所以 webpack 仍然会从根目录下面找。
-6. 这时就需要用到`publicPath`，这个属性会告诉 webpack，我的资源都会放到这个路径下面。
-7. 这可以是相对路径也可以是绝对路径，远程 URL 路径也可以。
-8. 现在如下设置，告诉 webpack 图片的路径是相对于`path`中设定的路径的`assets`子目录
+4. 如果你现在不修改配置，直接在服务器根目录建一个`static`目录如上分级放置。显然加载的时
+候是不会成功的，因为`index.html`引用资源的路径还是按照同级路径引用的。
+4. 这时就需要用到`publicPath`，这个属性会告诉 webpack，我的资源都会放到这个路径下面。
+5. 可以是相对路径也可以是绝对路径，远程 URL 路径也可以。
+6. 现在如下设置，告诉 webpack 图片的路径是相对于`path`中设定的路径的`static`子目录
     ```js
     output: {
         filename: 'app.bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: './assets/',
+        publicPath: './static/',
     }
     ```
-9. 另外，上面说了设定为远程 URL 路径也可以，所以这就可以将资源放在 CDN 服务器中。
-10. 例如你打算把资源放在如下目录里：`http://cdn.example.com/assets/`，那只要把
-`publicPath`设定为上述路径，加载图片的路径就会变为`http://cdn.example.com/assets/5a339e90d795e76df54beaa5a26dc465.jpg`
+7. 现在虽然打包的输出结构还是`index.html`、`app.bundle.js`和`img.jpg`同级，但你必须
+要把`app.bundle.js`和`img.jpg`放到和`index.html`同级的`static`目录里才能正常访问。
+8. 上面说了设定为远程 URL 路径也可以，所以这就可以将资源放在 CDN 服务器中。
+10. 例如你打算把资源放在如下目录里：`http://cdn.example.com/static/`，那只要把
+`publicPath`设定为上述路径，加载图片的路径就会变为`http://cdn.example.com/static/app.bundle.js`
 
 ### 动态设定
 1. 可以在入口起点通过全局变量`__webpack_public_path__`动态设定 publicPath

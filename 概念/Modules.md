@@ -109,8 +109,3 @@ import 'module/lib/file';
     3. 不懂。我把打包入口文件重命名为`index1.js`，把`vue.runtime.esm.js`重命名为
     `index.js`放到`index1.js`，还是找不到模块。
 3. 文件扩展名通过`resolve.extensions`选项采用类似的方法进行解析。
-
-
-## References
-* [模块](https://webpack.docschina.org/configuration/module/)
-* [模块解析](https://webpack.docschina.org/concepts/module-resolution/)

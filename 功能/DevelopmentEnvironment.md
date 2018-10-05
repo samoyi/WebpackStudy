@@ -118,20 +118,20 @@ updated, the entire set of dependencies is reloaded.
 * `webpack.config.js`
     ```js
     const path = require('path');
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+    const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
-module.exports = {
-    mode: 'development',
-        devServer: {
-            contentBase: './dist',
-        },
-        entry: './src/index.js',
-        devtool: 'inline-source-map',
-        output: {
-            filename: 'bundle.js',
-            path: path.resolve(__dirname, 'dist'),
-        },
-        // ...
+    module.exports = {
+        mode: 'development',
+            devServer: {
+                contentBase: './dist',
+            },
+            entry: './src/index.js',
+            devtool: 'inline-source-map',
+            output: {
+                filename: 'bundle.js',
+                path: path.resolve(__dirname, 'dist'),
+            },
+            // ...
     };
     ```
 

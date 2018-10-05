@@ -84,11 +84,21 @@ webpack 在进行构建时可以找到该配置文件。但现在进行了分离
 
 
 ## Specify the Environment
-1. Many libraries will key off the `process.env.NODE_ENV` variable to determine
-what should be included in the library.
+1. 许多 library 将通过与`process.env.NODE_ENV`环境变量关联，以决定 library 中应该引
+用哪些内容。
 2. Technically, `NODE_ENV` is a system environment variable that Node.js exposes
 into running scripts. It is used by convention to determine dev-vs-prod behavior
 by server tools, build scripts, and client-side libraries.
+3. `NODE_ENV`是 Node.js 暴露给运行时的脚本的一个系统环境变量，按照惯例它被用于判断当前
+是开发环境还是生产环境，服务器工具、构建脚本和客户端 library 会因此做出不同的决策。
+4. 但因为当前环境是要在`webpack.config.js`中设定的，所以在该配置文件中访问`NODE_ENV`
+属性的值是`undefined`。因而不能在配置文件中用该属性来决定怎样配置，例如下面的是不行的：
+    ```js
+    process.env.NODE_ENV === 'production'
+                             ? '[name].[hash].bundle.js'
+                             : '[name].bundle.js'
+    ```
+    还是要通过分离开发和生产配置文件，并使用不同的构建命令来加载不同的配置文件。
 3. 有两个地方需要根据不同的环境来做出不同的决策：编译时和编译后。  
 设定编译后的环境可以使用 Webpack 的 `DefinePlugin` 插件；如果要设定在编译时的环境，需
 要在命令行进行设定。
