@@ -6,15 +6,16 @@
 
 ## 基础配置
 在 webpack 中配置`output`属性的最低要求是，将它的值设置为一个对象，包括以下两点：
-    * `filename`：输出文件的文件名。
-    * `path`：目标输出目录的绝对路径。
-    ```js
-    module.exports = {
-        output: {
-            filename: 'bundle.js',
-            path: '/home/proj/public/assets'
-        }
-    };
+* `filename`：输出文件的文件名。
+* `path`：目标输出目录的绝对路径。
+
+```js
+module.exports = {
+    output: {
+        filename: 'bundle.js',
+        path: '/home/proj/public/assets'
+    }
+};
     ```
 
 
