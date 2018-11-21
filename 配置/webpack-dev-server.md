@@ -27,20 +27,26 @@ module.exports = {
 2. 这样，如果要请求`http://localhost:3000`，直接使用`/api`就行了。
 
 ### `pathRewrite`
-If you don't want `/api` to be passed along, we need to rewrite the path:不懂
-```js
-module.exports = {
-    //...
-    devServer: {
-        proxy: {
-            '/api': {
-                target: 'http://localhost:3000',
-                pathRewrite: {'^/api' : ''}
+1. If you don't want `/api` to be passed along, we need to rewrite the path. 不
+懂，感觉和文档中说的正好相反。
+2. 实际的例子就是，默认情况下，如果请求路径为`/api/list`，则实际的请求路径并不会是
+`http://localhost:3000/list`，而是当前主机的`/api/list`。也就是说，默认情况下只有单
+独的`/api`路径才会被代理，后面再加上其他的就不会走代理了。
+3. 如果希望`/api/list`也被转换为`http://localhost:3000/list`，则需要如下加上
+`pathRewrite`属性
+    ```js
+    module.exports = {
+        //...
+        devServer: {
+            proxy: {
+                '/api': {
+                    target: 'http://localhost:3000',
+                    pathRewrite: {'^/api' : ''}
+                }
             }
         }
-    }
-};
-```
+    };
+    ```
 
 ### `secure`
 A backend server running on HTTPS with an invalid certificate will not be
