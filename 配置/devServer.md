@@ -1,11 +1,9 @@
 # devServer
 
-
-
 ## `devServer.contentBase`
-1. 告诉服务器从哪个目录中提供内容。
-2. 默认情况下，将使用当前工作目录作为提供内容的目录，但是你可以修改为其他目录。推荐使用
-绝对路径。
+1. 当你想使用一些不参与打包的静态文件时，类似于`vue-cli2`中的`/static/`目录下的那种文件，就可以用到这个属性。
+2. 当你把这个属性指定为一个目录时，在启用服务器时，该目录里面的文件就会拷贝到服务器的根目录。
+3. 例如设定如下的`public`目录为静态文件目录
     ```js
     module.exports = {
         //...
@@ -14,15 +12,15 @@
         }
     };
     ```
-3. 也可以从多个目录提供内容
-    ```js
-    module.exports = {
-        //...
-        devServer: {
-            contentBase: [path.join(__dirname, 'public'), path.join(__dirname, 'assets')]
-        }
-    };
+4. 比如该目录下有一个文件`foo.jpg`，当 devServer 运行时，`./public/foo.jpg`就会拷贝到服务器根目录。在 HTML 里可以通过绝对路径和 URL 来访问
+    ```html
+    <img src="/public.jpg" />
+    或
+    <img src="http://localhost:8080/foo.jpg" />
     ```
+5. 这个属性可以设置为一个路径字符串，或者一个包含若干个路径字符串的数组用于指定多个目录。推荐使用绝对路径。    
+6. 这个属性的默认值是 CWD。也就是说，如果是通过`package.json`的`scripts`来运行服务器，则整个项目目录里的资源都可以引用。感觉上，还有应该有专门的静态资源目录才好，就像`vue-cli`的`/static/`。
+7. 不过这个属性，通常应该像`vue-cli`那样，被设置为`false`，也就是禁用该功能。因为这只是开发服务器的功能，生产构建时并不能用。所以最好也是像`vue-cli`那样使用`copy-webpack-plugin`，不管是开发构建还是生产构建，都统一把`/static/`中的资源拷贝到构建目录的`static`目录。
 
 
 ## `devServer.inline`
